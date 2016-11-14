@@ -6,7 +6,6 @@
     <integer name="duartion_anim">300</integer>
 
 
-
     <dimen name="space_xs">4dip</dimen>
     <dimen name="space_s">8dip</dimen>
     <dimen name="space_m">16dip</dimen>

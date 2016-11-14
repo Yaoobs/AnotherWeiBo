@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_height="match_parent"
-    tools:context="com.yaoobs.anotherweibo.activities.BaseActivity">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:background="?attr/colorPrimary"
         android:layout_width="match_parent"
+        android:background="?attr/colorPrimary"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        android:id="@+id/toolbar"
         android:layout_height="?attr/actionBarSize">
-
         <RelativeLayout
-            android:id="@+id/rlCustom"
             android:layout_gravity="center"
-            android:background="@color/colorAccent"
+            android:id="@+id/rlCustom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-
 
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
@@ -25,8 +22,5 @@
         android:id="@+id/rlContent"
         android:background="@color/cw_bg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-    </RelativeLayout>
+        android:layout_height="match_parent"/>
 </LinearLayout>

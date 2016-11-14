@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yaoobs.anotherweibo.activities.HomePageActivity">
+
+    <FrameLayout
+        android:id="@+id/flContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+
+    </FrameLayout>
+
+    <android.support.v4.app.FragmentTabHost
+        android:id="@+id/tabHost"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    </android.support.v4.app.FragmentTabHost>
+
+    <RadioGroup
+        android:id="@+id/rgTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbHome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:button="@null"
+            android:drawablePadding="@dimen/space_xs"
+            android:drawableTop="@drawable/bg_tabbar_home_selector"
+            android:gravity="center"
+            android:text="@string/lbl_home"
+            android:textColor="@drawable/bg_home_text_selector"
+            android:textSize="@dimen/txt_m" />
+
+        <RadioButton
+            android:id="@+id/rbMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawablePadding="@dimen/space_xs"
+            android:drawableTop="@drawable/bg_tabbar_message_selector"
+            android:gravity="center"
+            android:text="@string/lbl_message"
+            android:textColor="@drawable/bg_home_text_selector"
+            android:textSize="@dimen/txt_m" />
+
+        <RadioButton
+            android:id="@+id/rbProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawablePadding="@dimen/space_xs"
+            android:drawableTop="@drawable/bg_tabbar_profile_selector"
+            android:gravity="center"
+            android:text="@string/lbl_profile"
+            android:textColor="@drawable/bg_home_text_selector"
+            android:textSize="@dimen/txt_m" />
+
+    </RadioGroup>
+</LinearLayout>

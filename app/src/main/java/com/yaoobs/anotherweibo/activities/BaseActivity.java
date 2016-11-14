@@ -2,45 +2,52 @@ package com.yaoobs.anotherweibo.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.yaoobs.anotherweibo.R;
-import com.yaoobs.anotherweibo.ToolbarX;
+import com.yaoobs.anotherweibo.views.ToolbarX;
 
+
+/**
+ * Project Name：CWeiBo
+ * Describe：
+ * 菜鸟窝是一个只专注做Android开发技能的在线学习平台，课程以实战项目为主，
+ * 对课程与服务”吹毛求疵”般的要求，打造极致课程，是菜鸟窝不变的承诺
+ * Author：<a href="http://www.cniao5.com">菜鸟窝</a>
+ * Created By：yul
+ * Modify：yul
+ * Modify Time：下午10:48
+ * Remark：
+ */
 public abstract class BaseActivity extends AppCompatActivity {
 
     private RelativeLayout rlContent;
     private Toolbar toolbar;
     private ToolbarX mToolbarX;
-
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-        setTheme(R.style.AppTheme);
         initialize();
-        View v = getLayoutInflater().inflate(getLayoutId(), rlContent, false);
+        View v= getLayoutInflater().inflate(getLayoutId(), rlContent, false);
         rlContent.addView(v);
-
+        mToolbarX = new ToolbarX(toolbar,this);
     }
-
-    public abstract int getLayoutId();
+    public  abstract  int getLayoutId();
 
     @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);
-        overridePendingTransition(R.anim.anim_in_right_left, R.anim.anim_out_right_left);
+        overridePendingTransition(R.anim.anim_in_right_left,R.anim.anim_out_right_left);
     }
 
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.anim_in_left_right, R.anim.anim_out_left_right);
+        overridePendingTransition(R.anim.anim_in_left_right,R.anim.anim_out_left_right);
     }
 
     @Override
@@ -50,17 +57,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private void initialize() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbarX = new ToolbarX(toolbar,this);
+
         rlContent = (RelativeLayout) findViewById(R.id.rlContent);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
 
     }
-
-    public ToolbarX getToolbar(){
-        if (null==mToolbarX){
+    public  ToolbarX getToolbar(){
+        if(null==mToolbarX){
             mToolbarX = new ToolbarX(toolbar,this);
         }
         return mToolbarX;
     }
-
 }
