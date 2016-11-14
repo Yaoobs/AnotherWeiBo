@@ -14,7 +14,7 @@ import com.yaoobs.anotherweibo.R;
  * A simple {@link Fragment} subclass.
  */
 public class BaseFragment extends Fragment {
-    
+
     @Override
     public void startActivity(Intent intent) {
         getActivity().startActivity(intent);
