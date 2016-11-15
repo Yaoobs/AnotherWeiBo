@@ -1,5 +1,7 @@
 package com.yaoobs.anotherweibo.entities;
 
+import java.util.List;
+
 /**
  * Created by yaoobs on 2016/11/15.
  */
@@ -37,4 +39,17 @@ public class StatusEntity {
     public String in_reply_to_status_id;
     public String in_reply_to_user_id;
     public String in_reply_to_screen_name;
+
+    public String thumbnail_pic;
+    public String bmiddle_pic;
+    public String original_pic;
+    public Object geo;
+    public List<PicUrlsEntity> pic_urls;
+    public UserEntity user;
+    public StatusEntity retweeted_status;
+    public  int  reposts_count;
+    public  int  comments_count;
+    public  int  attitudes_count;
+
+    public int deleted;
 }
