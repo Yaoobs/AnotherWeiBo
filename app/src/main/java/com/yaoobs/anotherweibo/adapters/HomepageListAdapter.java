@@ -1,5 +1,6 @@
 package com.yaoobs.anotherweibo.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -9,8 +10,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.yaoobs.anotherweibo.R;
+import com.yaoobs.anotherweibo.entities.PicUrlsEntity;
 import com.yaoobs.anotherweibo.entities.StatusEntity;
+import com.yaoobs.anotherweibo.utils.CircleTransform;
 import com.yaoobs.anotherweibo.utils.TimeFormatUtils;
 
 import java.util.List;
@@ -23,10 +27,12 @@ public class HomepageListAdapter extends RecyclerView.Adapter{
 
     private List<StatusEntity> mDataSet;
     private OnItemClickListener mOnItemClickListener;
+    private Context mContext;
 
 
-    public HomepageListAdapter(List<StatusEntity> mDataSet) {
+    public HomepageListAdapter(List<StatusEntity> mDataSet,Context context) {
         this.mDataSet = mDataSet;
+        mContext = context;
     }
 
     @Override
@@ -45,9 +51,32 @@ public class HomepageListAdapter extends RecyclerView.Adapter{
          homepageViewHolder.tvContent.setText(entity.text);
          homepageViewHolder.tvSource.setText(Html.fromHtml(entity.source).toString());
          StatusEntity reStatus = entity.retweeted_status;
+         Glide.with(mContext).load(entity.user.profile_image_url).transform(new CircleTransform(mContext)).error(R
+                 .mipmap.ic_default_header)
+                 .placeholder(R.mipmap.ic_launcher).into(homepageViewHolder.ivHeader);
+         List<PicUrlsEntity> pics = entity.pic_urls;
+         if(null!=pics&&pics.size()>0){
+             final PicUrlsEntity pic = pics.get(0);
+             pic.original_pic = pic.thumbnail_pic.replace("thumbnail","large");
+             pic.bmiddle_pic = pic.thumbnail_pic.replace("thumbnail","bmiddle");
+             homepageViewHolder.ivContent.setVisibility(View.VISIBLE);
+             Glide.with(mContext).load(pic.bmiddle_pic).into(homepageViewHolder.ivContent);
+         } else {
+             homepageViewHolder.ivContent.setVisibility(View.GONE);
+         }
          if (null!=reStatus){
              homepageViewHolder.llRe.setVisibility(View.VISIBLE);
              homepageViewHolder.tvReContent.setText(reStatus.text);
+             List<PicUrlsEntity> rePics = reStatus.pic_urls;
+             if(null!=rePics&&rePics.size()>0){
+                 final PicUrlsEntity pic = rePics.get(0);
+                 pic.original_pic = pic.thumbnail_pic.replace("thumbnail","large");
+                 pic.bmiddle_pic = pic.thumbnail_pic.replace("thumbnail","bmiddle");
+                 homepageViewHolder.ivContent.setVisibility(View.VISIBLE);
+                 Glide.with(mContext).load(pic.bmiddle_pic).into(homepageViewHolder.ivContent);
+             } else {
+                 homepageViewHolder.ivContent.setVisibility(View.GONE);
+             }
          } else {
              homepageViewHolder.llRe.setVisibility(View.GONE);
          }
@@ -74,6 +103,7 @@ public class HomepageListAdapter extends RecyclerView.Adapter{
         private TextView tvContent;
         private TextView tvReContent;
         private LinearLayout llRe;
+        private ImageView ivContent, ivReContent;
 
         public HomepageViewHolder(View itemView) {
             super(itemView);
@@ -95,7 +125,8 @@ public class HomepageListAdapter extends RecyclerView.Adapter{
             tvContent = (TextView) v.findViewById(R.id.tvContent);
             tvReContent = (TextView) v.findViewById(R.id.tvReContent);
             llRe = (LinearLayout) v.findViewById(R.id.llRe);
-
+            ivContent = (ImageView) v.findViewById(R.id.ivContent);
+            ivReContent = (ImageView) v.findViewById(R.id.ivReContent);
         }
     }
     public interface OnItemClickListener {

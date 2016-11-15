@@ -62,13 +62,13 @@
         android:singleLine="false"
         android:text="@string/empty_string"/>
 
-    <!--<ImageView-->
-        <!--android:id="@+id/ivContent"-->
-        <!--android:layout_width="@dimen/avatar_size_xxl"-->
-        <!--android:layout_height="@dimen/avatar_size_xxl"-->
-        <!--android:layout_margin="@dimen/space_m"-->
-        <!--android:scaleType="centerCrop"-->
-        <!--android:src="@mipmap/ic_place_holder"/>-->
+    <ImageView
+        android:id="@+id/ivContent"
+        android:layout_width="@dimen/avatar_size_xxl"
+        android:layout_height="@dimen/avatar_size_xxl"
+        android:layout_margin="@dimen/space_m"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_place_holder"/>
 
     <LinearLayout
         android:id="@+id/llRe"
@@ -86,13 +86,13 @@
             android:singleLine="false"
             android:text="@string/empty_string"/>
 
-        <!--<ImageView-->
-            <!--android:id="@+id/ivReContent"-->
-            <!--android:layout_width="@dimen/avatar_size_xxl"-->
-            <!--android:layout_height="@dimen/avatar_size_xxl"-->
-            <!--android:layout_margin="@dimen/space_m"-->
-            <!--android:scaleType="centerCrop"-->
-            <!--android:src="@mipmap/ic_place_holder"/>-->
+        <ImageView
+            android:id="@+id/ivReContent"
+            android:layout_width="@dimen/avatar_size_xxl"
+            android:layout_height="@dimen/avatar_size_xxl"
+            android:layout_margin="@dimen/space_m"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_place_holder"/>
     </LinearLayout>
 
     <!--<LinearLayout-->

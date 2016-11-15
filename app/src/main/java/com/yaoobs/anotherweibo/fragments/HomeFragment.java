@@ -54,7 +54,7 @@ public class HomeFragment extends BaseFragment {
         httpMethod = "GET";
         mSPUtils = SPUtils.getInstance(getActivity());
         mEntityList = new ArrayList<>();
-        mListAdapter = new HomepageListAdapter(mEntityList);
+        mListAdapter = new HomepageListAdapter(mEntityList,getActivity());
     }
 
     @Override
@@ -67,7 +67,7 @@ public class HomeFragment extends BaseFragment {
             public WeiboParameters onPrepare() {
                 mParameters.put(ParameterKeySet.AUTH_ACCESS_TOKEN, mSPUtils.getToken().getToken());
                 mParameters.put(ParameterKeySet.PAGE, page);
-                mParameters.put(ParameterKeySet.COUNT, 1);
+                mParameters.put(ParameterKeySet.COUNT, 10);
                 return mParameters;
             }
 
