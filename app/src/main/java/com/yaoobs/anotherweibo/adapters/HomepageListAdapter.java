@@ -3,6 +3,7 @@ package com.yaoobs.anotherweibo.adapters;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.yaoobs.anotherweibo.R;
 import com.yaoobs.anotherweibo.entities.PicUrlsEntity;
 import com.yaoobs.anotherweibo.entities.StatusEntity;
 import com.yaoobs.anotherweibo.utils.CircleTransform;
+import com.yaoobs.anotherweibo.utils.RichTextUtils;
 import com.yaoobs.anotherweibo.utils.TimeFormatUtils;
 
 import java.util.List;
@@ -48,7 +50,8 @@ public class HomepageListAdapter extends RecyclerView.Adapter {
             StatusEntity entity = mDataSet.get(position);
             homepageViewHolder.tvUserName.setText(entity.user.screen_name);
             homepageViewHolder.tvTime.setText(TimeFormatUtils.parseToYYMMDD(entity.created_at));
-            homepageViewHolder.tvContent.setText(entity.text);
+            homepageViewHolder.tvContent.setText(RichTextUtils.getRichText(mContext, entity.text));
+            homepageViewHolder.tvContent.setMovementMethod(LinkMovementMethod.getInstance());
             homepageViewHolder.tvSource.setText(Html.fromHtml(entity.source).toString());
             StatusEntity reStatus = entity.retweeted_status;
             Glide.with(mContext).load(entity.user.profile_image_url).transform(new CircleTransform(mContext)).error(R
@@ -70,8 +73,10 @@ public class HomepageListAdapter extends RecyclerView.Adapter {
                 homepageViewHolder.ivContent.setVisibility(View.GONE);
             }
             if (null != reStatus) {
+                String reContent =  "@"+reStatus.user.screen_name+":"+reStatus.text;
                 homepageViewHolder.llRe.setVisibility(View.VISIBLE);
-                homepageViewHolder.tvReContent.setText(reStatus.text);
+                homepageViewHolder.tvReContent.setText(RichTextUtils.getRichText(mContext,reContent));
+                homepageViewHolder.tvReContent.setMovementMethod(LinkMovementMethod.getInstance());
                 List<PicUrlsEntity> rePics = reStatus.pic_urls;
                 if (null != rePics && rePics.size() > 0) {
                     final PicUrlsEntity pic = rePics.get(0);
