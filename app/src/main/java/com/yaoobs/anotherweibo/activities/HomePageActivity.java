@@ -1,7 +1,9 @@
 package com.yaoobs.anotherweibo.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -13,6 +15,8 @@ import com.yaoobs.anotherweibo.R;
 import com.yaoobs.anotherweibo.fragments.HomeFragment;
 import com.yaoobs.anotherweibo.fragments.MessageFragment;
 import com.yaoobs.anotherweibo.fragments.ProfileFragment;
+
+import de.greenrobot.event.EventBus;
 
 public class HomePageActivity extends BaseActivity {
 
@@ -86,7 +90,7 @@ public class HomePageActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-//        EventBus.getDefault().post(item.getItemId());
+        EventBus.getDefault().post(item.getItemId());
         return true;
     }
 }

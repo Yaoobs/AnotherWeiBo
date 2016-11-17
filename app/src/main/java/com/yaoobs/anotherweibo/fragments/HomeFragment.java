@@ -1,9 +1,15 @@
 package com.yaoobs.anotherweibo.fragments;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.view.ActionProvider;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,6 +35,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+
+import static com.yaoobs.anotherweibo.networks.Urls.USER_TIME_LINE;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -44,6 +54,7 @@ public class HomeFragment extends BaseFragment {
     private List<StatusEntity> mEntityList;
     private HomepageListAdapter mListAdapter;
     private int page =1;
+    private String url;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +65,7 @@ public class HomeFragment extends BaseFragment {
         mSPUtils = SPUtils.getInstance(getActivity());
         mEntityList = new ArrayList<>();
         mListAdapter = new HomepageListAdapter(mEntityList,getActivity());
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -61,7 +73,13 @@ public class HomeFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         rlv = (RecyclerView) inflater.inflate(R.layout.v_common_recyclerview, container, false);
         init();
-        new BaseNetWork(getActivity(), Urls.HOME_TIME_LINE) {
+        loadData(Urls.HOME_TIME_LINE);
+
+        return rlv;
+    }
+
+    private void loadData(String url) {
+        new BaseNetWork(getActivity(), url) {
             @Override
             public WeiboParameters onPrepare() {
                 mParameters.put(ParameterKeySet.AUTH_ACCESS_TOKEN, mSPUtils.getToken().getToken());
@@ -87,7 +105,6 @@ public class HomeFragment extends BaseFragment {
                 }
             }
         }.get();
-        return rlv;
     }
 
     private void init() {
@@ -102,6 +119,30 @@ public class HomeFragment extends BaseFragment {
 
             }
         });
+    }
+
+    public void onEventMainThread(Object event) {
+        if(event instanceof Integer){
+            int id  = (int) event;
+            switch (id){
+                case R.id.action_one:
+                    url = Urls.HOME_TIME_LINE;
+                    break;
+                case R.id.action_two:
+                    url = Urls.USER_TIME_LINE;
+                    break;
+            }
+            loadData(url);
+        }
+        if(event  instanceof String){
+            loadData(url);
+        }
+
+    }
+
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
 }
