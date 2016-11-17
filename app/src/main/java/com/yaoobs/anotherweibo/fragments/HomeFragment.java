@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.sina.weibo.sdk.constant.WBConstants;
 import com.sina.weibo.sdk.net.AsyncWeiboRunner;
 import com.sina.weibo.sdk.net.WeiboParameters;
 import com.yaoobs.anotherweibo.R;

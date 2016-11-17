@@ -46,7 +46,7 @@ public class HomePageActivity extends BaseActivity {
         rbHome = (RadioButton) findViewById(R.id.rbHome);
         rbMessage = (RadioButton) findViewById(R.id.rbMessage);
         rbProfile = (RadioButton) findViewById(R.id.rbProfile);
-        tabHost.setup(getApplicationContext(),getSupportFragmentManager(),R.id.flContainer);
+        tabHost.setup(getApplicationContext(), getSupportFragmentManager(), R.id.flContainer);
         for (int i = 0; i < fragment.length; i++) {
             TabHost.TabSpec tabSpec = tabHost.newTabSpec(String.valueOf(i)).setIndicator(String.valueOf(i));
             tabHost.addTab(tabSpec, fragment[i], null);

@@ -95,55 +95,55 @@
             android:src="@mipmap/ic_place_holder"/>
     </LinearLayout>
 
-    <!--<LinearLayout-->
-        <!--android:id="@+id/llBottom"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:padding="@dimen/space_m">-->
+    <LinearLayout
+        android:id="@+id/llBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_m">
 
-        <!--<com.cniao5.cweibo.views.DrawCenterTextView-->
-            <!--android:drawablePadding="@dimen/space_s"-->
-            <!--android:id="@+id/tvRetweet"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="1"-->
-            <!--android:background="@color/cw_white"-->
-            <!--android:drawableLeft="@mipmap/ic_toolbar_icon_retweet"-->
-            <!--android:text="@string/empty_string"/>-->
+        <com.yaoobs.anotherweibo.views.DrawCenterTextView
+            android:drawablePadding="@dimen/space_s"
+            android:id="@+id/tvRetweet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/cw_white"
+            android:drawableLeft="@mipmap/ic_toolbar_icon_retweet"
+            android:text="@string/empty_string"/>
 
-        <!--<View-->
-            <!--android:layout_marginLeft="@dimen/space_s"-->
-            <!--android:layout_marginRight="@dimen/space_s"-->
-            <!--android:layout_width="@dimen/height_divider"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:background="@color/cw_grey"/>-->
+        <View
+            android:layout_marginLeft="@dimen/space_s"
+            android:layout_marginRight="@dimen/space_s"
+            android:layout_width="@dimen/height_divider"
+            android:layout_height="match_parent"
+            android:background="@color/cw_grey"/>
 
-        <!--<com.cniao5.cweibo.views.DrawCenterTextView-->
-            <!--android:drawablePadding="@dimen/space_s"-->
-            <!--android:id="@+id/tvLike"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="1"-->
-            <!--android:background="@color/cw_white"-->
-            <!--android:drawableLeft="@mipmap/ic_icon_unlike"-->
-            <!--android:text="@string/empty_string"/>-->
+        <com.yaoobs.anotherweibo.views.DrawCenterTextView
+            android:drawablePadding="@dimen/space_s"
+            android:id="@+id/tvLike"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/cw_white"
+            android:drawableLeft="@mipmap/ic_icon_unlike"
+            android:text="@string/empty_string"/>
 
-        <!--<View-->
-            <!--android:layout_marginLeft="@dimen/space_s"-->
-            <!--android:layout_marginRight="@dimen/space_s"-->
-            <!--android:layout_width="@dimen/height_divider"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:background="@color/cw_grey"/>-->
+        <View
+            android:layout_marginLeft="@dimen/space_s"
+            android:layout_marginRight="@dimen/space_s"
+            android:layout_width="@dimen/height_divider"
+            android:layout_height="match_parent"
+            android:background="@color/cw_grey"/>
 
-        <!--<com.cniao5.cweibo.views.DrawCenterTextView-->
-            <!--android:drawablePadding="@dimen/space_s"-->
-            <!--android:id="@+id/tvComment"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:background="@color/cw_white"-->
-            <!--android:drawableLeft="@mipmap/ic_toolbar_icon_comment"-->
-            <!--android:text="@string/empty_string"/>-->
-    <!--</LinearLayout>-->
+        <com.yaoobs.anotherweibo.views.DrawCenterTextView
+            android:drawablePadding="@dimen/space_s"
+            android:id="@+id/tvComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/cw_white"
+            android:drawableLeft="@mipmap/ic_toolbar_icon_comment"
+            android:text="@string/empty_string"/>
+    </LinearLayout>
 </LinearLayout>
