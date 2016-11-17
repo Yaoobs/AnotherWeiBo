@@ -32,7 +32,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.RepostActivity"></activity>
+        <activity android:name=".activities.RepostActivity" />
+        <activity android:name=".activities.PhotoViewActivity"
+            android:theme="@style/AppTheme.NoActionBar.FullScreen">
+
+        </activity>
     </application>
 
 </manifest>

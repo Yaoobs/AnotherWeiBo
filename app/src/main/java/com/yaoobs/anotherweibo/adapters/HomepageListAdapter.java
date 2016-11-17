@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.yaoobs.anotherweibo.R;
+import com.yaoobs.anotherweibo.activities.PhotoViewActivity;
 import com.yaoobs.anotherweibo.activities.RepostActivity;
 import com.yaoobs.anotherweibo.entities.PicUrlsEntity;
 import com.yaoobs.anotherweibo.entities.StatusEntity;
@@ -92,6 +93,13 @@ public class HomepageListAdapter extends RecyclerView.Adapter {
                 pic.bmiddle_pic = pic.thumbnail_pic.replace("thumbnail", "bmiddle");
                 homepageViewHolder.ivContent.setVisibility(View.VISIBLE);
                 Glide.with(mContext).load(pic.bmiddle_pic).into(homepageViewHolder.ivContent);
+                homepageViewHolder.ivContent.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, PhotoViewActivity.class);
+                        intent.putExtra(PicUrlsEntity.class.getSimpleName(),pic);
+                        mContext.startActivity(intent);
+                    }
+                });
             } else {
                 homepageViewHolder.ivContent.setVisibility(View.GONE);
             }
