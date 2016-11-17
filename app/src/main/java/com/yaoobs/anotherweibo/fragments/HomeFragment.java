@@ -53,7 +53,7 @@ public class HomeFragment extends BaseFragment {
     private RecyclerView.ItemDecoration mItemDecoration;
     private List<StatusEntity> mEntityList;
     private HomepageListAdapter mListAdapter;
-    private int page =1;
+    private int page = 1;
     private String url;
 
     @Override
@@ -64,7 +64,7 @@ public class HomeFragment extends BaseFragment {
         httpMethod = "GET";
         mSPUtils = SPUtils.getInstance(getActivity());
         mEntityList = new ArrayList<>();
-        mListAdapter = new HomepageListAdapter(mEntityList,getActivity());
+        mListAdapter = new HomepageListAdapter(mEntityList, getActivity());
         EventBus.getDefault().register(this);
     }
 
@@ -122,9 +122,9 @@ public class HomeFragment extends BaseFragment {
     }
 
     public void onEventMainThread(Object event) {
-        if(event instanceof Integer){
-            int id  = (int) event;
-            switch (id){
+        if (event instanceof Integer) {
+            int id = (int) event;
+            switch (id) {
                 case R.id.action_one:
                     url = Urls.HOME_TIME_LINE;
                     break;
@@ -134,7 +134,7 @@ public class HomeFragment extends BaseFragment {
             }
             loadData(url);
         }
-        if(event  instanceof String){
+        if (event instanceof String) {
             loadData(url);
         }
 

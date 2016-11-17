@@ -1,6 +1,7 @@
 package com.yaoobs.anotherweibo.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -13,8 +14,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.yaoobs.anotherweibo.R;
+import com.yaoobs.anotherweibo.activities.RepostActivity;
 import com.yaoobs.anotherweibo.entities.PicUrlsEntity;
 import com.yaoobs.anotherweibo.entities.StatusEntity;
+import com.yaoobs.anotherweibo.networks.ParameterKeySet;
 import com.yaoobs.anotherweibo.utils.CircleTransform;
 import com.yaoobs.anotherweibo.utils.RichTextUtils;
 import com.yaoobs.anotherweibo.utils.TimeFormatUtils;
@@ -47,13 +50,13 @@ public class HomepageListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof HomepageViewHolder) {
             HomepageViewHolder homepageViewHolder = (HomepageViewHolder) holder;
-            StatusEntity entity = mDataSet.get(position);
+            final StatusEntity entity = mDataSet.get(position);
             homepageViewHolder.tvUserName.setText(entity.user.screen_name);
             homepageViewHolder.tvTime.setText(TimeFormatUtils.parseToYYMMDD(entity.created_at));
             homepageViewHolder.tvContent.setText(RichTextUtils.getRichText(mContext, entity.text));
             homepageViewHolder.tvContent.setMovementMethod(LinkMovementMethod.getInstance());
             homepageViewHolder.tvSource.setText(Html.fromHtml(entity.source).toString());
-            StatusEntity reStatus = entity.retweeted_status;
+            final StatusEntity reStatus = entity.retweeted_status;
             Glide.with(mContext).load(entity.user.profile_image_url).transform(new CircleTransform(mContext)).error(R
                     .mipmap.ic_default_header)
                     .placeholder(R.mipmap.ic_launcher).into(homepageViewHolder.ivHeader);
@@ -62,6 +65,26 @@ public class HomepageListAdapter extends RecyclerView.Adapter {
             homepageViewHolder.tvComment.setText(String.valueOf(entity.comments_count));
             homepageViewHolder.tvLike.setText(String.valueOf(entity.attitudes_count));
             homepageViewHolder.tvRetween.setText(String.valueOf(entity.reposts_count));
+
+            homepageViewHolder.tvRetween.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, RepostActivity.class);
+                    intent.putExtra(ParameterKeySet.ID, entity.id);
+                    if(null!=reStatus){
+                        intent.putExtra(ParameterKeySet.STATUS, entity.text);
+                    }
+                    intent.setAction("REPOST");
+                    mContext.startActivity(intent);
+                }
+            });
+            homepageViewHolder.tvComment.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, RepostActivity.class);
+                    intent.putExtra(ParameterKeySet.ID, entity.id);
+                    intent.setAction("COMMENT");
+                    mContext.startActivity(intent);
+                }
+            });
 
             if (null != pics && pics.size() > 0) {
                 final PicUrlsEntity pic = pics.get(0);
