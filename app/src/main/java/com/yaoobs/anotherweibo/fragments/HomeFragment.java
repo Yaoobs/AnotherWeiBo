@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.sina.weibo.sdk.net.AsyncWeiboRunner;
 import com.sina.weibo.sdk.net.WeiboParameters;
 import com.yaoobs.anotherweibo.R;
@@ -30,6 +31,7 @@ import com.yaoobs.anotherweibo.networks.ParameterKeySet;
 import com.yaoobs.anotherweibo.networks.Urls;
 import com.yaoobs.anotherweibo.utils.DividerItemDecoration;
 import com.yaoobs.anotherweibo.utils.SPUtils;
+import com.yaoobs.anotherweibo.views.PullToRefreshRecyclerView;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -48,13 +50,13 @@ public class HomeFragment extends BaseFragment {
     //“GET”, “POST”, “DELETE”
     private String httpMethod;
     private SPUtils mSPUtils;
-    private RecyclerView rlv;
+    private PullToRefreshRecyclerView rlv;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.ItemDecoration mItemDecoration;
     private List<StatusEntity> mEntityList;
     private HomepageListAdapter mListAdapter;
     private int page = 1;
-    private String url;
+    private String url = Urls.HOME_TIME_LINE;;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,14 +73,14 @@ public class HomeFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rlv = (RecyclerView) inflater.inflate(R.layout.v_common_recyclerview, container, false);
+        rlv = (PullToRefreshRecyclerView) inflater.inflate(R.layout.v_common_recyclerview, container, false);
         init();
-        loadData(Urls.HOME_TIME_LINE);
+        loadData(Urls.HOME_TIME_LINE, false);
 
         return rlv;
     }
 
-    private void loadData(String url) {
+    private void loadData(String url, final boolean loadMore) {
         new BaseNetWork(getActivity(), url) {
             @Override
             public WeiboParameters onPrepare() {
@@ -96,11 +98,13 @@ public class HomeFragment extends BaseFragment {
                     Type type = new TypeToken<ArrayList<StatusEntity>>() {
                     }.getType();
                     list = new Gson().fromJson(response.response, type);
-                    if (null != list && list.size() > 0) {
+                    if (!loadMore) {
                         mEntityList.clear();
-                        mEntityList.addAll(list);
                     }
+                    rlv.onRefreshComplete();
+                    mEntityList.addAll(list);
                     mListAdapter.notifyDataSetChanged();
+
                 } else {
                 }
             }
@@ -109,14 +113,20 @@ public class HomeFragment extends BaseFragment {
 
     private void init() {
         mLayoutManager = new LinearLayoutManager(getActivity());
-        rlv.setLayoutManager(mLayoutManager);
+        rlv.getRefreshableView().setLayoutManager(mLayoutManager);
         mItemDecoration = new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL);
-        rlv.addItemDecoration(mItemDecoration);
-        rlv.setAdapter(mListAdapter);
-        mListAdapter.setOnItemClickListener(new HomepageListAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
+        rlv.getRefreshableView().addItemDecoration(mItemDecoration);
+        rlv.getRefreshableView().setAdapter(mListAdapter);
+        rlv.setMode(PullToRefreshBase.Mode.BOTH);
+        rlv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<RecyclerView>() {
+            public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+                page = 1;
+                loadData(url, false);
+            }
 
+            public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
+                page++;
+                loadData(url, true);
             }
         });
     }
@@ -132,10 +142,10 @@ public class HomeFragment extends BaseFragment {
                     url = Urls.USER_TIME_LINE;
                     break;
             }
-            loadData(url);
+            loadData(url,false);
         }
         if (event instanceof String) {
-            loadData(url);
+            loadData(url,false);
         }
 
     }
