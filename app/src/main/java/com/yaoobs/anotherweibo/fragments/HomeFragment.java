@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -29,9 +30,12 @@ import com.yaoobs.anotherweibo.entities.StatusEntity;
 import com.yaoobs.anotherweibo.networks.BaseNetWork;
 import com.yaoobs.anotherweibo.networks.ParameterKeySet;
 import com.yaoobs.anotherweibo.networks.Urls;
+import com.yaoobs.anotherweibo.presenter.HomePresenter;
+import com.yaoobs.anotherweibo.presenter.HomePresenterImp;
 import com.yaoobs.anotherweibo.utils.DividerItemDecoration;
 import com.yaoobs.anotherweibo.utils.SPUtils;
 import com.yaoobs.anotherweibo.views.PullToRefreshRecyclerView;
+import com.yaoobs.anotherweibo.views.mvpviews.HomeView;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -44,30 +48,20 @@ import static com.yaoobs.anotherweibo.networks.Urls.USER_TIME_LINE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends BaseFragment {
-    private AsyncWeiboRunner mAsyncWeiboRunner;
-    private WeiboParameters mParameters;
-    //“GET”, “POST”, “DELETE”
-    private String httpMethod;
-    private SPUtils mSPUtils;
+public class HomeFragment extends BaseFragment implements HomeView {
     private PullToRefreshRecyclerView rlv;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.ItemDecoration mItemDecoration;
-    private List<StatusEntity> mEntityList;
+    private HomePresenter mPresenter;
     private HomepageListAdapter mListAdapter;
-    private int page = 1;
-    private String url = Urls.HOME_TIME_LINE;;
+    private  List<StatusEntity> mList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAsyncWeiboRunner = new AsyncWeiboRunner(getActivity());
-        mParameters = new WeiboParameters(Constant.APP_KEY);
-        httpMethod = "GET";
-        mSPUtils = SPUtils.getInstance(getActivity());
-        mEntityList = new ArrayList<>();
-        mListAdapter = new HomepageListAdapter(mEntityList, getActivity());
         EventBus.getDefault().register(this);
+        mPresenter = new HomePresenterImp(this);
+        mListAdapter = new HomepageListAdapter(mList,getActivity());
     }
 
     @Override
@@ -75,40 +69,8 @@ public class HomeFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         rlv = (PullToRefreshRecyclerView) inflater.inflate(R.layout.v_common_recyclerview, container, false);
         init();
-        loadData(Urls.HOME_TIME_LINE, false);
-
+        mPresenter.loadData();
         return rlv;
-    }
-
-    private void loadData(String url, final boolean loadMore) {
-        new BaseNetWork(getActivity(), url) {
-            @Override
-            public WeiboParameters onPrepare() {
-                mParameters.put(ParameterKeySet.AUTH_ACCESS_TOKEN, mSPUtils.getToken().getToken());
-                mParameters.put(ParameterKeySet.PAGE, page);
-                mParameters.put(ParameterKeySet.COUNT, 10);
-                return mParameters;
-            }
-
-            @Override
-            public void onFinish(HttpResponse response, boolean sucess) {
-                if (sucess) {
-//                    Log.i("TAG", "onFinish: " + response.response+"");
-                    List<StatusEntity> list = new ArrayList<StatusEntity>();
-                    Type type = new TypeToken<ArrayList<StatusEntity>>() {
-                    }.getType();
-                    list = new Gson().fromJson(response.response, type);
-                    if (!loadMore) {
-                        mEntityList.clear();
-                    }
-                    rlv.onRefreshComplete();
-                    mEntityList.addAll(list);
-                    mListAdapter.notifyDataSetChanged();
-
-                } else {
-                }
-            }
-        }.get();
     }
 
     private void init() {
@@ -120,13 +82,11 @@ public class HomeFragment extends BaseFragment {
         rlv.setMode(PullToRefreshBase.Mode.BOTH);
         rlv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<RecyclerView>() {
             public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-                page = 1;
-                loadData(url, false);
+                mPresenter.loadData();
             }
 
             public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-                page++;
-                loadData(url, true);
+                mPresenter.loadMore();
             }
         });
     }
@@ -136,18 +96,13 @@ public class HomeFragment extends BaseFragment {
             int id = (int) event;
             switch (id) {
                 case R.id.action_one:
-                    url = Urls.HOME_TIME_LINE;
+                    mPresenter.requestHomeTimeLine();
                     break;
                 case R.id.action_two:
-                    url = Urls.USER_TIME_LINE;
+                    mPresenter.requestUserTimeLine();
                     break;
             }
-            loadData(url,false);
         }
-        if (event instanceof String) {
-            loadData(url,false);
-        }
-
     }
 
     public void onDestroy() {
@@ -155,4 +110,17 @@ public class HomeFragment extends BaseFragment {
         EventBus.getDefault().unregister(this);
     }
 
+    @Override
+    public void onSuccess(List<StatusEntity> list) {
+        rlv.onRefreshComplete();
+        mList.clear();
+        mList.addAll(list);
+        mListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onError(String error) {
+        rlv.onRefreshComplete();
+        Toast.makeText(getActivity(),error,Toast.LENGTH_SHORT).show();
+    }
 }
