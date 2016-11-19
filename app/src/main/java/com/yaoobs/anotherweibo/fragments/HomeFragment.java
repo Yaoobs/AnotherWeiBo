@@ -36,6 +36,7 @@ import com.yaoobs.anotherweibo.presenter.HomePresenterImp;
 import com.yaoobs.anotherweibo.utils.DividerItemDecoration;
 import com.yaoobs.anotherweibo.utils.SPUtils;
 import com.yaoobs.anotherweibo.views.PullToRefreshRecyclerView;
+import com.yaoobs.anotherweibo.views.mvpviews.BaseView;
 import com.yaoobs.anotherweibo.views.mvpviews.HomeView;
 
 import java.lang.reflect.Type;
@@ -49,7 +50,7 @@ import static com.yaoobs.anotherweibo.networks.Urls.USER_TIME_LINE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends BaseFragment implements HomeView {
+public class HomeFragment extends BaseFragment implements HomeView{
     private PullToRefreshRecyclerView rlv;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.ItemDecoration mItemDecoration;

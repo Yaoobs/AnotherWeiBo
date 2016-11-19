@@ -13,6 +13,7 @@ import com.yaoobs.anotherweibo.networks.BaseNetWork;
 import com.yaoobs.anotherweibo.networks.ParameterKeySet;
 import com.yaoobs.anotherweibo.networks.Urls;
 import com.yaoobs.anotherweibo.utils.SPUtils;
+import com.yaoobs.anotherweibo.views.mvpviews.BaseView;
 import com.yaoobs.anotherweibo.views.mvpviews.HomeView;
 
 import java.lang.reflect.Type;
@@ -63,11 +64,6 @@ public class HomePresenterImp implements HomePresenter {
         url = Urls.USER_TIME_LINE;
         loadData(false);
     }
-
-//    @Override
-//    public HomepageListAdapter getAdapter() {
-//        return mListAdapter;
-//    }
 
     private void loadData(final boolean loadMore) {
         new BaseNetWork(mHomeView.getActivity(), url) {
