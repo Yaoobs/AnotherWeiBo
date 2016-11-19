@@ -33,10 +33,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.RepostActivity" />
-        <activity android:name=".activities.PhotoViewActivity"
-            android:theme="@style/AppTheme.NoActionBar.FullScreen">
-
-        </activity>
+        <activity
+            android:name=".activities.PhotoViewActivity"
+            android:theme="@style/AppTheme.NoActionBar.FullScreen"></activity>
+        <activity android:name=".activities.ArticleCommentActivity"></activity>
     </application>
 
 </manifest>

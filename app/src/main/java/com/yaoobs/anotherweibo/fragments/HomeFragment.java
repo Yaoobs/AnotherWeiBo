@@ -23,6 +23,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.sina.weibo.sdk.net.AsyncWeiboRunner;
 import com.sina.weibo.sdk.net.WeiboParameters;
 import com.yaoobs.anotherweibo.R;
+import com.yaoobs.anotherweibo.activities.ArticleCommentActivity;
 import com.yaoobs.anotherweibo.adapters.HomepageListAdapter;
 import com.yaoobs.anotherweibo.core.Constant;
 import com.yaoobs.anotherweibo.entities.HttpResponse;
@@ -61,6 +62,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         mPresenter = new HomePresenterImp(this);
+        mList = new ArrayList<>();
         mListAdapter = new HomepageListAdapter(mList,getActivity());
     }
 
@@ -87,6 +89,14 @@ public class HomeFragment extends BaseFragment implements HomeView {
 
             public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
                 mPresenter.loadMore();
+            }
+        });
+        mListAdapter.setOnItemClickListener(new HomepageListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                Intent intent = new Intent(getActivity(), ArticleCommentActivity.class);
+                intent.putExtra(StatusEntity.class.getSimpleName(),mList.get(position));
+                startActivity(intent);
             }
         });
     }

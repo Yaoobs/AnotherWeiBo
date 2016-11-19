@@ -1,12 +1,13 @@
 package com.yaoobs.anotherweibo.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by yaoobs on 2016/11/15.
  */
 
-public class StatusEntity {
+public class StatusEntity implements Serializable{
 
     /**
      * created_at : Tue Nov 15 15:50:10 +0800 2016
