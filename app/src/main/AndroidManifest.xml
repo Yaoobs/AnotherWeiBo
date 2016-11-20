@@ -35,8 +35,11 @@
         <activity android:name=".activities.RepostActivity" />
         <activity
             android:name=".activities.PhotoViewActivity"
-            android:theme="@style/AppTheme.NoActionBar.FullScreen"></activity>
-        <activity android:name=".activities.ArticleCommentActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar.FullScreen" />
+        <activity android:name=".activities.ArticleCommentActivity" />
+        <activity android:name=".activities.MentionActivity" />
+        <activity android:name=".activities.CommentActivity" />
+        <activity android:name=".activities.LikedActivity"></activity>
     </application>
 
 </manifest>

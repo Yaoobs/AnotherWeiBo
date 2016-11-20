@@ -45,7 +45,7 @@
             android:textSize="@dimen/txt_m" />
 
         <RadioButton
-            android:id="@+id/rbMessage"
+            android:id="@+id/rbDiscover"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
