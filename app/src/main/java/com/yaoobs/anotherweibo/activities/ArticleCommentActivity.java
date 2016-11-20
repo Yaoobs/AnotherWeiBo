@@ -65,22 +65,19 @@ public class ArticleCommentActivity extends BaseActivity implements ArticleComme
         mAdapter = new ArticleCommentAdapter(this, mStatusEntity,mDataSet);
         rlv.setAdapter(mAdapter);
         rlv.setMode(PullToRefreshBase.Mode.BOTH);
-        mPresenter.loadData();
+        mPresenter.loadData(true);
         rlv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<RecyclerView>() {
             public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-                mPresenter.loadData();
+                mPresenter.loadData(false);
             }
 
             public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-                mPresenter.loadMore();
+                mPresenter.loadMore(false);
             }
         });
     }
 
-    @Override
-    public Activity getActivity() {
-        return this;
-    }
+
 
     @Override
     public void onSuccess(List<CommentEntity> list) {
@@ -94,7 +91,9 @@ public class ArticleCommentActivity extends BaseActivity implements ArticleComme
 
     @Override
     public void onError(String error) {
+        super.onError(error);
         rlv.onRefreshComplete();
-        Toast.makeText(getActivity(),error,Toast.LENGTH_SHORT).show();
     }
+
+
 }

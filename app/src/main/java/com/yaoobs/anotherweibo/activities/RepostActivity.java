@@ -69,7 +69,7 @@ public class RepostActivity extends BaseActivity {
     }
 
     private void post(final String string) {
-        new BaseNetWork(getApplicationContext(),url) {
+        new BaseNetWork(this,url) {
             public WeiboParameters onPrepare() {
                 WeiboParameters weiboParameters = new WeiboParameters(Constant.APP_KEY);
                 weiboParameters.put(ParameterKeySet.AUTH_ACCESS_TOKEN, SPUtils.getInstance(getApplicationContext())

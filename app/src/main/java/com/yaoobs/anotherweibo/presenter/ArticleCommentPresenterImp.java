@@ -41,17 +41,18 @@ public class ArticleCommentPresenterImp implements ArticleCommentPresenter {
                 .getSimpleName());
     }
 
-    public void loadData() {
-        page=1;
-        loadData(false);
+    public void loadData(boolean showLoading) {
+        page = 1;
+        loadData(false,showLoading);
     }
 
-    public void loadMore() {
+    public void loadMore(boolean showLoading) {
         page++;
-        loadData(true);
+        loadData(true,showLoading);
     }
-    private void loadData(final boolean loadMore){
-        new BaseNetWork(mCommentView.getActivity(), Urls.COMMENT_SHOW) {
+
+    private void loadData(final boolean loadMore,boolean showLoading){
+        new BaseNetWork(mCommentView, Urls.COMMENT_SHOW,showLoading) {
             public WeiboParameters onPrepare() {
                 WeiboParameters parameters = new WeiboParameters(Constant.APP_KEY);
                 parameters.put(ParameterKeySet.ID, getEntity().id);

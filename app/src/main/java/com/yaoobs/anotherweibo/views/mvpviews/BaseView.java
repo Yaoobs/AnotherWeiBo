@@ -11,4 +11,6 @@ import java.util.List;
 public interface BaseView {
     Activity getActivity();
     void onError(String error);
+    void showLoading();
+    void hideLoading();
 }

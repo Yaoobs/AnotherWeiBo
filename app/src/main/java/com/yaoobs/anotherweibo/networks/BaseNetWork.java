@@ -12,6 +12,7 @@ import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.net.WeiboParameters;
 import com.yaoobs.anotherweibo.core.Constant;
 import com.yaoobs.anotherweibo.entities.HttpResponse;
+import com.yaoobs.anotherweibo.views.mvpviews.BaseView;
 
 /**
  * Created by yaoobs on 2016/11/15.
@@ -20,15 +21,28 @@ import com.yaoobs.anotherweibo.entities.HttpResponse;
 public abstract class BaseNetWork {
     private AsyncWeiboRunner mAsyncWeiboRunner;
     private String url;
+    private BaseView mBaseView;
+    private boolean mShowLoading;
 
-    public BaseNetWork(Context context, String url) {
-        mAsyncWeiboRunner = new AsyncWeiboRunner(context);
+    public BaseNetWork(BaseView baseView, String url) {
         this.url = url;
+        mBaseView = baseView;
+        mAsyncWeiboRunner = new AsyncWeiboRunner(mBaseView.getActivity());
+    }
+
+    public BaseNetWork(BaseView baseView, String url, boolean showLoading) {
+        mBaseView = baseView;
+        mAsyncWeiboRunner = new AsyncWeiboRunner(mBaseView.getActivity());
+        this.url = url;
+        mShowLoading = showLoading;
     }
 
     private RequestListener mRequestListener = new RequestListener() {
         @Override
         public void onComplete(String s) {
+            if (mShowLoading) {
+                mBaseView.hideLoading();
+            }
             boolean success = false;
             HttpResponse response = new HttpResponse();
             JsonParser parser = new JsonParser();
@@ -40,6 +54,8 @@ public abstract class BaseNetWork {
                 }
                 if (object.has("error")) {
                     response.message = object.get("error").getAsString();
+                    mBaseView.onError(response.message);
+                    onFinish(response, false);
                 }
                 if (object.has("statuses")) {
                     response.response = object.get("statuses").toString();
@@ -64,20 +80,30 @@ public abstract class BaseNetWork {
         public void onWeiboException(WeiboException e) {
             HttpResponse response = new HttpResponse();
             response.message = e.getMessage();
+            mBaseView.onError(response.message);
             onFinish(response, false);
         }
     };
 
     public void get() {
-        mAsyncWeiboRunner.requestAsync(url, onPrepare(), "GET", mRequestListener);
+        request("GET");
     }
 
     public void post() {
-        mAsyncWeiboRunner.requestAsync(url, onPrepare(), "POST", mRequestListener);
+        request("POST");
     }
 
     public void delete() {
-        mAsyncWeiboRunner.requestAsync(url, onPrepare(), "DELETE", mRequestListener);
+        request("DELETE");
+
+    }
+
+    private void request(String method) {
+        if (mShowLoading) {
+            mBaseView.showLoading();
+        }
+        mAsyncWeiboRunner.requestAsync(url, onPrepare(), method, mRequestListener);
+
     }
 
     public abstract WeiboParameters onPrepare();

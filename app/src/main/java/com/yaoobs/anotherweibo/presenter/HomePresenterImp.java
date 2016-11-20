@@ -41,16 +41,14 @@ public class HomePresenterImp implements HomePresenter {
 //        mListAdapter = new HomepageListAdapter(mEntityList, mHomeView.getActivity());
     }
 
-    @Override
-    public void loadData() {
+    public void loadData(boolean showLoading) {
         page = 1;
-        loadData(false);
+        loadData(false,showLoading);
     }
 
-    @Override
-    public void loadMore() {
+    public void loadMore(boolean showLoading) {
         page++;
-        loadData(true);
+        loadData(true,showLoading);
     }
 
     @Override
@@ -65,8 +63,8 @@ public class HomePresenterImp implements HomePresenter {
         loadData(false);
     }
 
-    private void loadData(final boolean loadMore) {
-        new BaseNetWork(mHomeView.getActivity(), url) {
+    private void loadData(final boolean loadMore,boolean showLoading) {
+        new BaseNetWork(mHomeView, url,showLoading) {
             @Override
             public WeiboParameters onPrepare() {
                 mParameters.put(ParameterKeySet.AUTH_ACCESS_TOKEN, mSPUtils.getToken().getToken());

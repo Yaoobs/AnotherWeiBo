@@ -5,6 +5,6 @@ package com.yaoobs.anotherweibo.presenter;
  */
 
 public interface BasePresenter {
-    void loadData();
-    void loadMore();
+    void loadData(boolean showLoading);
+    void loadMore(boolean showLoading);
 }

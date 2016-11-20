@@ -72,7 +72,7 @@ public class HomeFragment extends BaseFragment implements HomeView{
                              Bundle savedInstanceState) {
         rlv = (PullToRefreshRecyclerView) inflater.inflate(R.layout.v_common_recyclerview, container, false);
         init();
-        mPresenter.loadData();
+        mPresenter.loadData(false);
         return rlv;
     }
 
@@ -85,11 +85,11 @@ public class HomeFragment extends BaseFragment implements HomeView{
         rlv.setMode(PullToRefreshBase.Mode.BOTH);
         rlv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<RecyclerView>() {
             public void onPullDownToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-                mPresenter.loadData();
+                mPresenter.loadData(false);
             }
 
             public void onPullUpToRefresh(PullToRefreshBase<RecyclerView> refreshView) {
-                mPresenter.loadMore();
+                mPresenter.loadMore(false);
             }
         });
         mListAdapter.setOnItemClickListener(new HomepageListAdapter.OnItemClickListener() {
@@ -133,5 +133,15 @@ public class HomeFragment extends BaseFragment implements HomeView{
     public void onError(String error) {
         rlv.onRefreshComplete();
         Toast.makeText(getActivity(),error,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
     }
 }
