@@ -11,4 +11,6 @@ public class Urls {
     public static final String STATUS_REPOST =PREFIX+"statuses/repost.json";
     public static final String COMMENT_CREATE =PREFIX+"comments/create.json";
     public static final String COMMENT_SHOW =PREFIX+"comments/show.json";
+    public static final String MENTIONS =PREFIX+"statuses/mentions.json";
+    public static final String COMMENTS_BY_ME =PREFIX+"comments/by_me";
 }
