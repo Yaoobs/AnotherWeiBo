@@ -14,4 +14,7 @@ public class Urls {
     public static final String MENTIONS =PREFIX+"statuses/mentions.json";
     public static final String COMMENTS_BY_ME =PREFIX+"comments/by_me.json";
     public static final String FAVOURITES =PREFIX+"favorites.json";
+    public static final String USER_INFO =PREFIX+"users/show.json";
+    public static final String FRIENDS =PREFIX+"friendships/friends.json";
+    public static final String FOLLOWERS =PREFIX+"friendships/followers.json";
 }

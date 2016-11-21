@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.yaoobs.anotherweibo.R;
 
@@ -25,6 +26,18 @@ public class BaseFragment extends Fragment {
     public void startActivityForResult(Intent intent, int requestCode) {
         getActivity().startActivityForResult(intent,requestCode);
         getActivity().overridePendingTransition(R.anim.anim_in_right_left,R.anim.anim_out_right_left);
+    }
+
+    public void onError(String error) {
+        Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+    }
+
+    public void showLoading() {
+
+    }
+
+    public void hideLoading() {
+
     }
 
 }

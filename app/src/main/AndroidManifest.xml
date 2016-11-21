@@ -39,7 +39,8 @@
         <activity android:name=".activities.ArticleCommentActivity" />
         <activity android:name=".activities.MentionActivity" />
         <activity android:name=".activities.CommentActivity" />
-        <activity android:name=".activities.FavActivity"></activity>
+        <activity android:name=".activities.FavActivity" />
+        <activity android:name=".activities.FansActivity"></activity>
     </application>
 
 </manifest>

@@ -12,4 +12,6 @@ public class ParameterKeySet extends WBConstants{
     public static final String ID ="id";
     public static final String STATUS ="status";
     public static final String COMMENT ="comment";
+    public static final String FILTER_BY_AUTHOR ="filter_by_author";
+    public static final String CURSOR ="cursor";
 }
