@@ -31,7 +31,6 @@ public class StatusEntity implements Serializable{
     public String mid;
     public String idstr;
     public String text;
-    public int textLength;
     public int source_allowclick;
     public int source_type;
     public String source;
@@ -40,7 +39,6 @@ public class StatusEntity implements Serializable{
     public String in_reply_to_status_id;
     public String in_reply_to_user_id;
     public String in_reply_to_screen_name;
-
     public String thumbnail_pic;
     public String bmiddle_pic;
     public String original_pic;
