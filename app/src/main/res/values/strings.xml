@@ -31,6 +31,7 @@
     <string name="lbl_logout">退出登录</string>
     <string name="title_weibo_detail">微博正文</string>
     <string name="lbl_loading">加载中&#8230;</string>
+    <string name="toast_press_again_to_exit">再按一次退出！</string>
 </resources>
 
 

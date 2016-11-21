@@ -4,13 +4,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.yaoobs.anotherweibo.R;
+import com.yaoobs.anotherweibo.adapters.CommonAdapter;
 import com.yaoobs.anotherweibo.adapters.FansAdapter;
 import com.yaoobs.anotherweibo.entities.UserEntity;
 import com.yaoobs.anotherweibo.presenter.FansPresenter;
 import com.yaoobs.anotherweibo.presenter.FansPresenterImp;
 import com.yaoobs.anotherweibo.utils.DividerItemDecoration;
+import com.yaoobs.anotherweibo.utils.LogUtils;
 import com.yaoobs.anotherweibo.views.PullToRefreshRecyclerView;
 import com.yaoobs.anotherweibo.views.mvpviews.FansView;
 
@@ -60,7 +63,11 @@ public class FansActivity extends BaseActivity implements FansView {
         mFansAdapter = new FansAdapter(mDataSet);
         mFansPresenter.loadData(true);
         rlv.setAdapter(mFansAdapter);
-
+        mFansAdapter.setOnItemClickListener(new CommonAdapter.OnItemClickListener() {
+            public void onItemClick(View v, int position) {
+                LogUtils.e(mDataSet.get(position).screen_name);
+            }
+        });
     }
 
     public void onSuccess(List<UserEntity> list) {

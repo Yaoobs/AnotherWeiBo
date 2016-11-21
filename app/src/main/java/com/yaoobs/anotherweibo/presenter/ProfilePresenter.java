@@ -6,4 +6,5 @@ package com.yaoobs.anotherweibo.presenter;
 
 public interface ProfilePresenter {
     void loadUserInfo();
+    void logOut();
 }

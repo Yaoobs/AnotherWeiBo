@@ -1,7 +1,10 @@
 package com.yaoobs.anotherweibo.presenter;
 
+import android.content.Intent;
+
 import com.google.gson.Gson;
 import com.sina.weibo.sdk.net.WeiboParameters;
+import com.yaoobs.anotherweibo.activities.LandingPageActivity;
 import com.yaoobs.anotherweibo.core.Constant;
 import com.yaoobs.anotherweibo.entities.HttpResponse;
 import com.yaoobs.anotherweibo.entities.UserEntity;
@@ -42,5 +45,11 @@ public class ProfilePresenterImp implements ProfilePresenter {
 
             }
         }.get();
+    }
+
+    public void logOut() {
+        mSPUtils.logOut();
+        mProfileView.getActivity().startActivity(new Intent(mProfileView.getActivity(), LandingPageActivity.class));
+        mProfileView.getActivity().finish();
     }
 }

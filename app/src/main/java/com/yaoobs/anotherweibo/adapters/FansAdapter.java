@@ -14,27 +14,18 @@ import java.util.List;
  * Created by yaoobs on 2016/11/21.
  */
 
-public class FansAdapter extends RecyclerView.Adapter<CommonViewHolder> {
-    private List<UserEntity> mList;
+public class FansAdapter extends CommonAdapter<UserEntity> {
 
-    public FansAdapter(List<UserEntity> list) {
-        mList = list;
+    public FansAdapter(List<UserEntity> dataSet, int layoutId) {
+        super(dataSet, R.layout.item_fans);
+    }
+    public FansAdapter(List<UserEntity> dataSet){
+        super(dataSet,R.layout.item_fans);
     }
 
-    public CommonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater  = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_fans,null);
-        return new CommonViewHolder(view);
-    }
-
-    public void onBindViewHolder(CommonViewHolder holder, int position) {
-        UserEntity entity = mList.get(position);
-        holder.setText(R.id.tvUserName,entity.screen_name);
-        holder.setText(R.id.tvDes,entity.description);
-        holder.setImageByUrlToCircle(R.id.ivHeader,entity.profile_image_url);
-    }
-
-    public int getItemCount() {
-        return mList.size();
+    public void convert(CommonViewHolder holder, UserEntity userEntity) {
+        holder.setImageByUrlToCircle(R.id.ivHeader, userEntity.profile_image_url);
+        holder.setText(R.id.tvUserName, userEntity.screen_name);
+        holder.setText(R.id.tvDes, userEntity.description);
     }
 }

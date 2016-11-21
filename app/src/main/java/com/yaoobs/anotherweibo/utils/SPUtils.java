@@ -50,4 +50,10 @@ public class SPUtils {
     public boolean isLogin() {
         return mSharedPreferences.getBoolean(IS_LOGIN, false);
     }
+
+    public void logOut(){
+        mEditor.remove(ACCESS_TOKEN);
+        mEditor.remove(IS_LOGIN);
+        mEditor.commit();
+    }
 }

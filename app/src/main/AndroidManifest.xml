@@ -16,31 +16,102 @@
         <activity
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.HomePageActivity">
+        <activity
+            android:launchMode="singleTask"
+            android:name=".activities.HomePageActivity"
+            android:label="@string/lbl_home"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.simple" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.simple"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.DemoActivity"
+            android:label="@string/lbl_demo"
+            android:screenOrientation="portrait"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.simple"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".activities.LandingPageActivity"
-            android:theme="@style/AppTheme.NoActionBar.FullScreen">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.FullScreen"
+            >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.RepostActivity" />
+        <activity
+            android:name=".activities.RepostActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/lbl_repost"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.simple"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.PhotoViewActivity"
-            android:theme="@style/AppTheme.NoActionBar.FullScreen" />
-        <activity android:name=".activities.ArticleCommentActivity" />
-        <activity android:name=".activities.MentionActivity" />
-        <activity android:name=".activities.CommentActivity" />
-        <activity android:name=".activities.FavActivity" />
-        <activity android:name=".activities.FansActivity"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.FullScreen"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.simple"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.ArticleCommentActivity"
+            android:screenOrientation="portrait"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.simple"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.FavActivity"
+            android:screenOrientation="portrait"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.simple"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.MentionActivity"
+            android:screenOrientation="portrait"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.simple"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.CommentActivity"
+            android:screenOrientation="portrait"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.simple"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.FansActivity"
+            android:screenOrientation="portrait"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.simple"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

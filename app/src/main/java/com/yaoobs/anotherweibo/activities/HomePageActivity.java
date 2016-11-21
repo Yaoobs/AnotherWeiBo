@@ -1,6 +1,7 @@
 package com.yaoobs.anotherweibo.activities;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentTabHost;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,6 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 import com.yaoobs.anotherweibo.R;
 import com.yaoobs.anotherweibo.fragments.DiscoverFragment;
@@ -26,6 +28,7 @@ public class HomePageActivity extends BaseActivity {
     private RadioButton rbProfile;
     private Class fragment[];
     private int menu_id = R.menu.menu_home;
+    private boolean isExit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,5 +93,19 @@ public class HomePageActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         EventBus.getDefault().post(item.getItemId());
         return true;
+    }
+
+    public void onBackPressed() {
+        if(isExit){
+            this.finish();
+        }else {
+            Toast.makeText(this,R.string.toast_press_again_to_exit,Toast.LENGTH_SHORT).show();
+            isExit =true;
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    isExit =false;
+                }
+            },2000);
+        }
     }
 }

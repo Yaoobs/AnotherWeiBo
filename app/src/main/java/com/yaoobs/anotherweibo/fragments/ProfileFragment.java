@@ -56,6 +56,7 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
         tvLoginOut = (TextView) view.findViewById(R.id.tvLoginOut);
         tvAttention.setOnClickListener(this);
         tvFans.setOnClickListener(this);
+        tvLoginOut.setOnClickListener(this);
     }
 
     public void onClick(View v) {
@@ -70,6 +71,9 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
                 intent = new Intent(getActivity(),FansActivity.class);
                 intent.setAction("tvFans");
                 startActivity(intent);
+                break;
+            case R.id.tvLoginOut:
+                mPresenter.logOut();
                 break;
         }
     }

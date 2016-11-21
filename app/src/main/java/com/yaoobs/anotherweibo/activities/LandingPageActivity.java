@@ -37,6 +37,11 @@ public class LandingPageActivity extends BaseActivity {
     }
 
     private void checkLogin() {
+//          if(Constant.DEBUG_ACTIVITIES){
+//            startActivity(new Intent(LandingPageActivity.this,DemoActivity.class));
+//            finish();
+//            return;
+//        }
         if (mSPUtils.isLogin()) {
             startActivity(new Intent(LandingPageActivity.this, HomePageActivity.class));
             finish();
