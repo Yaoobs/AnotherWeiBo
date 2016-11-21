@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 
 import com.yaoobs.anotherweibo.R;
 import com.yaoobs.anotherweibo.activities.CommentActivity;
-import com.yaoobs.anotherweibo.activities.LikedActivity;
+import com.yaoobs.anotherweibo.activities.FavActivity;
 import com.yaoobs.anotherweibo.activities.MentionActivity;
 
 /**
@@ -56,7 +56,7 @@ public class DiscoverFragment extends BaseFragment  implements View.OnClickListe
                 aClass = CommentActivity.class;
                 break;
             case R.id.llLike:
-                aClass = LikedActivity.class;
+                aClass = FavActivity.class;
                 break;
         }
         intent = new Intent(getActivity(),aClass);
